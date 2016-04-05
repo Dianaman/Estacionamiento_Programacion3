@@ -18,23 +18,60 @@
 	$patente = $_POST['patente'];
 	$ahora = date("y-m-d h:i:s");
 	$listadeautos = array();
+	$listaauxiliar = array();
 
 	if($accion=="ingreso"){
 		echo "se guardo la patente $patente";
-		$archivo = fopen("ticket.txt", "a");
-		fwrite($archivo, $patente."[".$ahora."]\n");
+		$archivo = fopen("ticket.txt", "a"); //abre en modo append
+		fwrite($archivo, $patente."[".$ahora."\n");
 		fclose($archivo);
 	}
 	else {
-		$archivo = fopen("ticket.txt", "r");
+		$archivo = fopen("ticket.txt", "r"); //abre en modo lectura
 		while(!feof($archivo)){
 			$renglon = fgets($archivo);
 			$auto = explode("[", $renglon); //explode separa un string mediante el delimitador
-			echo "$auto[0] $auto[1]<br>";
+			//echo "$auto[0] $auto[1]<br>";
+			if($auto[0]!="")
 			$listadeautos[] = $auto;
 		}
-		var_dump($listadeautos);
+		//var_dump($listadeautos);
 		fclose($archivo);
+
+		$esta = false;
+		foreach ($listadeautos as $auto) {
+			//echo "$auto[0]"."<br>";
+			if($auto[0]==$patente){
+				$esta = true;
+			}
+			else {
+				if($auto[0]!=""){
+					$listaauxiliar[] = $auto;
+				}
+			}
+		}
+		if($esta){
+			echo "Está el auto<br>";
+			/*$archivo=fopen("ticket.txt", "r+");
+			foreach($listadeautos as $auto){
+				if($auto[0]!=$patente)
+				fwrite($archivo, $auto[0]." [".$auto[1]);
+			}
+			fclose($archivo);*/
+
+			$fechainicio = $auto[1];
+			$diferencia = strtotime($ahora)-strtotime($fechainicio);
+			echo "El tiempo transcurrido es: $diferencia";
+
+			$archivo = fopen("ticket.txt", "w"); //abre en modo de sobreescritura
+			foreach ($listaauxiliar as $auto) {
+				fwrite($archivo, $auto[0]."[".$auto[1]);
+			}
+			fclose($archivo);
+		}
+		else {
+			echo "No está el auto";
+		}
 	}
 ?>
 <br>
