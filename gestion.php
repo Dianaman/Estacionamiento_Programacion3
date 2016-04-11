@@ -1,10 +1,30 @@
 <?php
 
+
+	$accion = $_POST['estacionar']; 
+	$patente = $_POST['patente'];
+	$ahora = date("y-m-d h:i:s");
+	$listadeautos = array();
+	$listaauxiliar = array();
+
+
+
+
+
+
 	/*CLASE 5*/
 	var_dump($_POST);
 	echo "<br><br>";
 	var_dump($_FILES['foto_autito']['name']);
-	$archivoDestino = "fotitos/".$_FILES['foto_autito']['name'];
+
+	//guardado con el nombre del archivo subido
+	//$archivoDestino = "fotitos/".$_FILES['foto_autito']['name'];
+
+	//guardado con la patente.jpg (o la extensión que sea)
+	//utilizamos explode para conseguir la extensión
+	$extAnterior = explode(".", $_FILES['foto_autito']['name']);
+	$archivoDestino = "fotitos/".$patente.".".$extAnterior[1];
+
 	//el archivo subido se guarda temporalmente en el servidor, el parámetro que indica dónde se guarda es el tmp_name
 	//para guardarlo en la página necesitamos mover el archivo con move_uploaded_file(ubicacion, destino);
 	move_uploaded_file($_FILES['foto_autito']['tmp_name'], $archivoDestino);
@@ -14,11 +34,9 @@
 	die();
 	/*END CLASE 5*/
 
-	$accion = $_POST['estacionar']; 
-	$patente = $_POST['patente'];
-	$ahora = date("y-m-d h:i:s");
-	$listadeautos = array();
-	$listaauxiliar = array();
+
+
+
 
 	if($accion=="ingreso"){
 		echo "se guardo la patente $patente";

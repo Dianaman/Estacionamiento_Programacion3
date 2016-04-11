@@ -14,11 +14,14 @@
 </head>
 	<body>
     <div class="CajaUno animated bounceInDown">
-
+            <!--  CLASE 5 -->
             <form action="gestion.php" method="post" enctype="multipart/form-data">
+            <!--  END CLASE 5 -->
               <input type="text" name="patente"  id="autocomplete"/>
 
+              <!--  CLASE 5 -->
               <input type="file" name="foto_autito" />
+              <!--  END CLASE 5 -->
               <br>
               <input type="submit" class="MiBotonUTN" value="ingreso"  name="estacionar" />
               <br/>
