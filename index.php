@@ -11,17 +11,19 @@
   <link rel="stylesheet" type="text/css" media="all" href="style.css">
  
 
-  <!--script type="text/javascript" src="js/currency-autocomplete.js"></script-->
 </head>
 	<body>
     <div class="CajaUno animated bounceInDown">
 
-            <form action="gestion.php" method="post" >
-            <input type="text" name="patente"  id="autocomplete"/>
-            <br>
-            <input type="submit" class="MiBotonUTN" value="ingreso"  name="estacionar" />
-            <br/>
-            <input type="submit" class="MiBotonUTN" value="egreso" name="estacionar" />
+            <form action="gestion.php" method="post" enctype="multipart/form-data">
+              <input type="text" name="patente"  id="autocomplete"/>
+
+              <input type="file" name="fotoautito" />
+              <br>
+              <input type="submit" class="MiBotonUTN" value="ingreso"  name="estacionar" />
+              <br/>
+              <input type="submit" class="MiBotonUTN" value="egreso" name="estacionar" />
+
           </form>
           
 
