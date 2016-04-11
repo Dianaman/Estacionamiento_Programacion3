@@ -13,16 +13,16 @@
 
 
 	/*CLASE 5*/
-	var_dump($_POST);
-	echo "<br><br>";
-	var_dump($_FILES['foto_autito']['name']);
+//	var_dump($_POST);
+//	echo "<br><br>";
+//	var_dump($_FILES['foto_autito']['name']);
 
 	//guardado con el nombre del archivo subido
 	//$archivoDestino = "fotitos/".$_FILES['foto_autito']['name'];
 
 	//guardado con la patente.jpg (o la extensión que sea)
 	//utilizamos explode para conseguir la extensión
-	$extAnterior = explode(".", $_FILES['foto_autito']['name']);
+/*	$extAnterior = explode(".", $_FILES['foto_autito']['name']);
 	$archivoDestino = "fotitos/".$patente.".".$extAnterior[1];
 
 	//el archivo subido se guarda temporalmente en el servidor, el parámetro que indica dónde se guarda es el tmp_name
@@ -31,7 +31,9 @@
 
 	echo "<br><br>";
 	var_dump($archivoDestino);
-	die();
+*/
+
+	//die();
 	/*END CLASE 5*/
 
 
@@ -39,9 +41,20 @@
 
 
 	if($accion=="ingreso"){
-		echo "se guardo la patente $patente";
+		/* CLASE 5 */
+		$extAnterior = explode(".", $_FILES['foto_autito']['name']);
+		$archivoDestino = "fotitos/".$patente.".".$extAnterior[1];
+
+		move_uploaded_file($_FILES['foto_autito']['tmp_name'], $archivoDestino);
+		
+		var_dump($archivoDestino);
+		echo "<br><br>";
+		/* CLASE 5	*/
+
+		echo "se guardo la patente $patente<br><br>";
 		$archivo = fopen("ticket.txt", "a");
-		fwrite($archivo, $patente."[".$ahora."\n");
+		//MODIFICACION
+		fwrite($archivo, $patente."[".$archivoDestino."[".$ahora."\n");
 		fclose($archivo);
 	}
 	else {
@@ -68,13 +81,15 @@
 		if($esta){
 			echo "Está el auto<br>";
 
-			$fechainicio = $auto[1];
+			//MODIFICACION
+			$fechainicio = $auto[2];
 			$diferencia = strtotime($ahora)-strtotime($fechainicio);
 			echo "El tiempo transcurrido es: $diferencia";
 
 			$archivo = fopen("ticket.txt", "w");
 			foreach ($listaauxiliar as $auto) {
-				fwrite($archivo, $auto[0]."[".$auto[1]);
+				//MODIFICACION
+				fwrite($archivo, $auto[0]."[".$auto[1]."[".$auto[2]);
 			}
 			fclose($archivo);
 		}
@@ -82,6 +97,19 @@
 			echo "No está el auto";
 		}
 	}
+
+	/*	CLASE 5	*/
+	$archivo = fopen("ticket.txt", "r");
+	while(!feof($archivo))
+	{
+		$renglon = fgets($archivo);
+		if($renglon != "")
+		{
+			$auto = explode("[", $renglon);
+			echo $auto[0].$auto[1].$auto[2]."<br>";
+		}
+	}
+	/*	CLASE 5	*/
 ?>
 <br>
 <br>
