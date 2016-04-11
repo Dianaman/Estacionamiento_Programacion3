@@ -2,8 +2,16 @@
 
 	/*CLASE 5*/
 	var_dump($_POST);
-	var_dump($_FILES);
-	die;
+	echo "<br><br>";
+	var_dump($_FILES['foto_autito']['name']);
+	$archivoDestino = "fotitos/".$_FILES['foto_autito']['name'];
+	//el archivo subido se guarda temporalmente en el servidor, el parámetro que indica dónde se guarda es el tmp_name
+	//para guardarlo en la página necesitamos mover el archivo con move_uploaded_file(ubicacion, destino);
+	move_uploaded_file($_FILES['foto_autito']['tmp_name'], $archivoDestino);
+
+	echo "<br><br>";
+	var_dump($archivoDestino);
+	die();
 	/*END CLASE 5*/
 
 	$accion = $_POST['estacionar']; 

@@ -18,7 +18,7 @@
             <form action="gestion.php" method="post" enctype="multipart/form-data">
               <input type="text" name="patente"  id="autocomplete"/>
 
-              <input type="file" name="fotoautito" />
+              <input type="file" name="foto_autito" />
               <br>
               <input type="submit" class="MiBotonUTN" value="ingreso"  name="estacionar" />
               <br/>
