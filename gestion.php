@@ -79,12 +79,12 @@
 			}
 		}
 		if($esta){
-			echo "Está el auto<br>";
+			echo "Está el auto<br><br>";
 
 			//MODIFICACION
 			$fechainicio = $auto[2];
 			$diferencia = strtotime($ahora)-strtotime($fechainicio);
-			echo "El tiempo transcurrido es: $diferencia";
+			echo "El tiempo transcurrido es: $diferencia<br><br>";
 
 			$archivo = fopen("ticket.txt", "w");
 			foreach ($listaauxiliar as $auto) {
@@ -94,21 +94,29 @@
 			fclose($archivo);
 		}
 		else {
-			echo "No está el auto";
+			echo "No está el auto<br><br>";
 		}
 	}
 
 	/*	CLASE 5	*/
 	$archivo = fopen("ticket.txt", "r");
+	echo "<table border=1>";
+	echo "<th>Patente</th><th>Foto</th><th>Fecha</th>";
 	while(!feof($archivo))
 	{
 		$renglon = fgets($archivo);
 		if($renglon != "")
 		{
 			$auto = explode("[", $renglon);
-			echo $auto[0].$auto[1].$auto[2]."<br>";
+			echo "<tr>";
+			echo "<td>".$auto[0]."</td>";
+			echo "<td><img src=".$auto[1]." width=100px></td>";
+			echo "<td>".$auto[2]."</td>";
+			echo "</tr>";
 		}
 	}
+	echo "</table>";
+	fclose($archivo);
 	/*	CLASE 5	*/
 ?>
 <br>
